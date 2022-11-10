@@ -1,16 +1,23 @@
-import { Controller, Post, Query } from '@nestjs/common';
+import { Body, Controller, Get, Post, Query, UseGuards } from '@nestjs/common';
+import { Roles } from 'src/common/decorators/role.decorator';
+import { AuthenticationGuard } from 'src/common/guards/auth.guard';
+import { RoleEnum } from 'src/constants/enum';
 import { CategoryService } from './category.service';
-import { Category } from './entities/category.entites';
+import { CreateCategoryInput } from './dto/category.dto';
 
 @Controller('category')
-export class CategoryResolvers {
+export class CategoryControllers {
   constructor(private readonly categoryService: CategoryService) {}
 
-  //
-  // @Query(() => Category[])
-  // async getAllCategory() {
-  //   return await this.categoryService.getAllCategory();
-  // }
+  @Get('')
+  async getAllCategory() {
+    return await this.categoryService.getAllCategory();
+  }
 
-  // @Post("")
+  @Roles(RoleEnum.ADMIN)
+  @UseGuards(AuthenticationGuard)
+  @Post('')
+  async createCategory(@Body() input: CreateCategoryInput) {
+    return await this.categoryService.createCategory(input);
+  }
 }

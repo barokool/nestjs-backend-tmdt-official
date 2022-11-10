@@ -7,6 +7,11 @@ import { AuthModule } from './auth/auth.module';
 import { ConfigurationService } from './configuration/configuration.service';
 import { MongooseConfigService } from './configuration/mongoose.config';
 import { AdminModule } from './modules/admin/admin.module';
+import { BidModule } from './modules/bid/bid.module';
+import { CategoryModule } from './modules/category/category.module';
+import { ProjectViewedModule } from './modules/project-viewed/project-viewed.module';
+import { ProjectModule } from './modules/project/project.module';
+import { TransactionModule } from './modules/transaction/transaction.module';
 import { UserModule } from './modules/user/user.module';
 
 @Module({
@@ -21,6 +26,11 @@ import { UserModule } from './modules/user/user.module';
     AuthModule,
     UserModule,
     AdminModule,
+    CategoryModule,
+    ProjectModule,
+    TransactionModule,
+    BidModule,
+    ProjectViewedModule,
   ],
   controllers: [],
   providers: [ConfigurationService],
