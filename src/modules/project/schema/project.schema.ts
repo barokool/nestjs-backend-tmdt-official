@@ -20,6 +20,9 @@ export const ProjectSchema = new Schema<Project>({
     type: String,
     enum: Object.values(PostType),
   },
+  isPayed: {
+    type: Boolean,
+  },
   isCancled: {
     type: Boolean,
   },

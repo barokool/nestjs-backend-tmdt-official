@@ -8,6 +8,8 @@ export interface IProject extends IEntity {
   imageUrl: string;
   postType: PostType;
 
+  isPayed: boolean;
+
   isCancled?: boolean;
   canceledReason?: string;
   canceledAt?: Date;
