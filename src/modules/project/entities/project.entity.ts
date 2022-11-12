@@ -23,6 +23,9 @@ export class Project implements IProject {
   @Prop()
   category: Category;
 
+  @Prop()
+  isPayed: boolean;
+
   @Prop({ nullable: true })
   isCancled?: boolean;
 

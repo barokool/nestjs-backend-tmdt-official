@@ -9,7 +9,7 @@ import { MongooseConfigService } from './configuration/mongoose.config';
 import { AdminModule } from './modules/admin/admin.module';
 import { BidModule } from './modules/bid/bid.module';
 import { CategoryModule } from './modules/category/category.module';
-import { ProjectViewedModule } from './modules/project-viewed/project-viewed.module';
+import { ProjectViewedModule } from './modules/project-bid/project-bid.module';
 import { ProjectModule } from './modules/project/project.module';
 import { TransactionModule } from './modules/transaction/transaction.module';
 import { UserModule } from './modules/user/user.module';

@@ -1,5 +1,6 @@
 import { Prop } from '@nestjs/mongoose';
 import { Project } from 'src/modules/project/entities/project.entity';
+import { User } from 'src/modules/user/entities/user.entity';
 import { IBid } from '../interfaces/bid';
 
 export class Bid implements IBid {
@@ -8,6 +9,9 @@ export class Bid implements IBid {
 
   @Prop()
   project: Project;
+
+  @Prop()
+  user: User;
 
   @Prop()
   amount: number;

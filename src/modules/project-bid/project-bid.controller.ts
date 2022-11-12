@@ -1,5 +1,5 @@
 import { Controller } from '@nestjs/common';
-import { ProjectViewedService } from './project-viewed.service';
+import { ProjectViewedService } from './project-bid.service';
 
 @Controller('project-viewed')
 export class ProjectViewedController {

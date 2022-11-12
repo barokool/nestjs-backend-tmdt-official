@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
-import { ProjectViewedService } from './project-viewed.service';
-import { ProjectViewedController } from './project-viewed.controller';
+import { ProjectViewedService } from './project-bid.service';
+import { ProjectViewedController } from './project-bid.controller';
 
 @Module({
   controllers: [ProjectViewedController],
