@@ -6,6 +6,7 @@ import { JwtService } from '@nestjs/jwt';
 import { responseHandler } from 'src/utils/response';
 import { ConfigService } from '@nestjs/config';
 import { RoleEnum } from 'src/constants/enum';
+import { User } from 'src/modules/user/entities/user.entity';
 @Injectable()
 export class AuthService {
   constructor(
@@ -53,7 +54,8 @@ export class AuthService {
     return await this.userService.getAllUser();
   }
 
-  async getUserByEmail(email: string) {
+  async getUserByEmail(user: User) {
+    const { email } = user;
     return await this.userService.getUserByEmail(email);
   }
 

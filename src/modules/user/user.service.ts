@@ -16,7 +16,7 @@ export class UserService {
   }
 
   async getUserByEmail(email): Promise<User | undefined> {
-    return this.userModel.findOne(email);
+    return this.userModel.findOne({ email });
   }
 
   async comparePassword(password: string, hashedPassword: string) {

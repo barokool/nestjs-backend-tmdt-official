@@ -8,6 +8,7 @@ import {
   UseGuards,
 } from '@nestjs/common';
 import { Response } from 'express';
+import { CurrentUser } from 'src/common/decorators/user.decorator';
 import { AuthenticationGuard } from 'src/common/guards/auth.guard';
 import { User } from 'src/modules/user/entities/user.entity';
 import { AuthService } from './auth.service';
@@ -33,9 +34,13 @@ export class AuthController {
     return await this.authService.getAllUSer();
   }
 
+  @UseGuards(AuthenticationGuard)
   @Get('/')
-  async getUserByEmail(@Body() email: string, @Res() response: Response) {
-    const user = await this.authService.getUserByEmail(email);
+  async getUserByEmail(
+    @CurrentUser() currentUser: User,
+    @Res() response: Response,
+  ) {
+    const user = await this.authService.getUserByEmail(currentUser);
     if (user) {
       return response.status(HttpStatus.OK).json({
         user: <Partial<User>>{
