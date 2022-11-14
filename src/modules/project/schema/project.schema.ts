@@ -10,7 +10,7 @@ export const ProjectSchema = new Schema<Project>({
   name: {
     type: String,
   },
-  desc: {
+  description: {
     type: String,
   },
   imageUrl: {

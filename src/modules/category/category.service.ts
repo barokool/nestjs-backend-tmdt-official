@@ -26,4 +26,8 @@ export class CategoryService {
 
     return await newCategory.save();
   }
+
+  async getCategory(id: string) {
+    return await this.categoryModel.findById(id);
+  }
 }

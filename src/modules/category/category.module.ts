@@ -27,5 +27,6 @@ import { AdminModule } from '../admin/admin.module';
   ],
   providers: [CategoryService, CategoryControllers],
   controllers: [CategoryControllers],
+  exports: [CategoryService],
 })
 export class CategoryModule {}
