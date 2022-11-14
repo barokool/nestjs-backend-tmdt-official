@@ -62,6 +62,18 @@ export class ProjectService {
   async updateProject() {
     console.log('hi');
   }
+
+  async getAllProjectByUser(user: User) {
+    return await this.projectModel
+      .find({
+        createdBy: user._id,
+      })
+      .exec();
+  }
+
+  async getAllProject() {
+    return await this.projectModel.find().exec();
+  }
 }
 
 /*
