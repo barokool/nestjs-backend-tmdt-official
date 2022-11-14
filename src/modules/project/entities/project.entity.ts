@@ -1,4 +1,5 @@
 import { Prop } from '@nestjs/mongoose';
+import { IsNotEmpty } from 'class-validator';
 import { PostType } from 'src/constants/enum';
 import { Category } from 'src/modules/category/entities/category.entites';
 import { User } from 'src/modules/user/entities/user.entity';
@@ -8,8 +9,8 @@ export class Project implements IProject {
   @Prop()
   _id: string;
 
-  @Prop({ nullable: true })
-  desc: string;
+  @Prop()
+  description: string;
 
   @Prop()
   name: string;
@@ -50,7 +51,7 @@ export class Project implements IProject {
   @Prop()
   finishedAt: Date;
 
-  @Prop(() => User)
+  @Prop()
   createdBy: User;
 
   @Prop({ nullable: true })
@@ -64,4 +65,39 @@ export class Project implements IProject {
 
   @Prop({ nullable: true })
   slug: string;
+}
+
+export class CreateProjectInput {
+  @Prop()
+  @IsNotEmpty()
+  category: string;
+
+  @Prop()
+  @IsNotEmpty()
+  name: string;
+
+  @Prop()
+  @IsNotEmpty()
+  description: string;
+
+  @Prop()
+  @IsNotEmpty()
+  postType: PostType;
+
+  @Prop()
+  isPayed: boolean;
+
+  @Prop()
+  // @IsNotEmpty()
+  tags: string[];
+
+  @Prop()
+  publishAt: Date;
+
+  @Prop()
+  expireAt: Date;
+
+  @Prop()
+  // @IsNotEmpty()
+  createdBy: User;
 }

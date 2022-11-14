@@ -53,6 +53,10 @@ export class AuthService {
     return await this.userService.getAllUser();
   }
 
+  async getUserByEmail(email: string) {
+    return await this.userService.getUserByEmail(email);
+  }
+
   async authentication(email: string, password: string): Promise<any> {
     const user = await this.userService.getUserByEmail(email);
 

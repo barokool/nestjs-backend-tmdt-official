@@ -19,8 +19,19 @@ export enum PermissionEnum {
 
 export enum PostType {
   SPECIAL_VIP = 'SPECIAL_VIP',
-  VIP_1 = 'VIP_1',
-  VIP_2 = 'VIP_2',
-  VIP_3 = 'VIP_3',
+  VIP = 'VIP',
   NORMAL = 'NORMAL',
+}
+
+export enum Tags {
+  WEB = 'WEB',
+  PROGRAMMING = 'PROGRAMMING',
+  AI = 'AI',
+  MOBILE = 'MOBILE',
+  SEO = 'SEO',
+  EMBEMDED = 'EMBEMBED',
+  NETWORK = 'NETWORK',
+  SOFTWARE = 'SOFTWARE',
+  OTHER = 'OTHER',
+  IT = 'IT',
 }

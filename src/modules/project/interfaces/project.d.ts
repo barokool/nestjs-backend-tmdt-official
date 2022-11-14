@@ -3,8 +3,10 @@ import { Category } from 'src/modules/category/entities/category.entites';
 import { User } from 'src/modules/user/entities/user.entity';
 
 export interface IProject extends IEntity {
+  category: Category;
+
   name: string;
-  desc: string;
+  description: string;
   imageUrl: string;
   postType: PostType;
 
@@ -14,7 +16,6 @@ export interface IProject extends IEntity {
   canceledReason?: string;
   canceledAt?: Date;
 
-  category: Category;
   tags: string[];
 
   publishAt: Date;
