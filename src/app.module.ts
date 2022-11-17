@@ -13,6 +13,7 @@ import { ProjectViewedModule } from './modules/project-bid/project-bid.module';
 import { ProjectModule } from './modules/project/project.module';
 import { TransactionModule } from './modules/transaction/transaction.module';
 import { UserModule } from './modules/user/user.module';
+import { StripeModule } from './stripe/stripe.module';
 
 @Module({
   imports: [
@@ -31,6 +32,7 @@ import { UserModule } from './modules/user/user.module';
     TransactionModule,
     BidModule,
     ProjectViewedModule,
+    StripeModule,
   ],
   controllers: [],
   providers: [ConfigurationService],
