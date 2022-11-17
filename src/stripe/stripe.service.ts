@@ -18,7 +18,7 @@ export class StripeService {
       currency: 'USD',
       payment_method: id,
       confirm: true,
-      customer: projectId,
+      // customer: projectId,
     });
     if (payment) {
       const projectFound = await this.projectService.getProjectById(projectId);
