@@ -74,6 +74,10 @@ export class ProjectService {
   async getAllProject() {
     return await this.projectModel.find().exec();
   }
+
+  async getProjectById(id: string) {
+    return await this.projectModel.findById(id).exec();
+  }
 }
 
 /*

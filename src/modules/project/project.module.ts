@@ -27,5 +27,6 @@ import { CategoryModule } from '../category/category.module';
   ],
   controllers: [ProjectController],
   providers: [ProjectService],
+  exports: [ProjectService],
 })
 export class ProjectModule {}
