@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, UseGuards } from '@nestjs/common';
 import { CurrentUser } from 'src/common/decorators/user.decorator';
 import { AuthenticationGuard } from 'src/common/guards/auth.guard';
 import { User } from '../user/entities/user.entity';
@@ -27,5 +27,10 @@ export class ProjectController {
   @Get('all')
   async getAllProjects() {
     return await this.projectService.getAllProject();
+  }
+
+  @Get('/:slug')
+  async getProjectBySlug(@Param('slug') slug: string) {
+    return await this.projectService.getProductBySlug(slug);
   }
 }

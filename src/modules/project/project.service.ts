@@ -60,7 +60,7 @@ export class ProjectService {
   }
 
   async updateProject() {
-    console.log('hi');
+    console.log('his');
   }
 
   async getAllProjectByUser(user: User) {
@@ -77,6 +77,10 @@ export class ProjectService {
 
   async getProjectById(id: string) {
     return await this.projectModel.findById(id).exec();
+  }
+
+  async getProductBySlug(slug: string): Promise<any> {
+    return await this.projectModel.find({ slug });
   }
 }
 
