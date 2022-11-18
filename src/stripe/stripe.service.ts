@@ -12,7 +12,12 @@ export class StripeService {
     });
   }
 
-  async payForProject(price: number, id: string, projectId: string) {
+  async payForProject(
+    price: number,
+    id: string,
+    projectId: string,
+    days: number,
+  ) {
     const payment = await this.stripe.paymentIntents.create({
       amount: price,
       currency: 'USD',
@@ -22,9 +27,12 @@ export class StripeService {
     });
     if (payment) {
       const projectFound = await this.projectService.getProjectById(projectId);
-      if (projectFound) {
+      if (projectFound && !projectFound.isPayed) {
         projectFound.isPayed = true;
-        console.log('Successfull');
+        projectFound.publishAt = new Date();
+        projectFound.expireAt = new Date(
+          projectFound.publishAt.getDate() + days,
+        );
 
         return await projectFound.save();
       }

@@ -13,4 +13,8 @@ export class PaymentInput {
   @Prop()
   @IsNotEmpty()
   projectId: string;
+
+  @Prop()
+  @IsNotEmpty()
+  days: number;
 }

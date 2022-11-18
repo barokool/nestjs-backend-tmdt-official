@@ -10,8 +10,8 @@ export class StripeController {
   @UseGuards(AuthenticationGuard)
   @Post('')
   async payAProject(@Body() input: PaymentInput) {
-    const { id, price, projectId } = input;
+    const { id, price, projectId, days } = input;
 
-    return await this.stripeService.payForProject(price, id, projectId);
+    return await this.stripeService.payForProject(price, id, projectId, days);
   }
 }
