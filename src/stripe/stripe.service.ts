@@ -29,10 +29,14 @@ export class StripeService {
       const projectFound = await this.projectService.getProjectById(projectId);
       if (projectFound && !projectFound.isPayed) {
         projectFound.isPayed = true;
-        projectFound.publishAt = new Date();
-        projectFound.expireAt = new Date(
-          projectFound.publishAt.getDate() + days,
-        );
+        //start date
+        const startDate = new Date();
+        projectFound.publishAt = startDate;
+
+        //end date
+        const endDate = new Date(startDate);
+        endDate.setDate(endDate.getDate() + days);
+        projectFound.expireAt = endDate;
 
         return await projectFound.save();
       }
