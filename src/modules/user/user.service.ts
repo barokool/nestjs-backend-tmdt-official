@@ -61,6 +61,6 @@ export class UserService {
   }
 
   async getUserById(filter: FilterUser): Promise<User> {
-    return this.userModel.findById(filter.id);
+    return await this.userModel.findById(filter.id).exec();
   }
 }

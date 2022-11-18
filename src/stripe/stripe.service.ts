@@ -18,32 +18,37 @@ export class StripeService {
     projectId: string,
     days: number,
   ) {
-    const payment = await this.stripe.paymentIntents.create({
-      amount: price,
-      currency: 'USD',
-      payment_method: id,
-      confirm: true,
-      // customer: projectId,
-    });
-    if (payment) {
-      const projectFound = await this.projectService.getProjectById(projectId);
-      if (projectFound && !projectFound.isPayed) {
-        projectFound.isPayed = true;
-        //start date
-        const startDate = new Date();
-        projectFound.publishAt = startDate;
+    try {
+      const payment = await this.stripe.paymentIntents.create({
+        amount: price,
+        currency: 'USD',
+        payment_method: id,
+        confirm: true,
+        // customer: projectId,
+      });
+      if (payment) {
+        const projectFound = await this.projectService.getProjectById(
+          projectId,
+        );
+        if (projectFound && !projectFound.isPayed) {
+          projectFound.isPayed = true;
+          //start date
+          const startDate = new Date();
+          projectFound.publishAt = startDate;
 
-        //end date
-        const endDate = new Date(startDate);
-        endDate.setDate(endDate.getDate() + days);
-        projectFound.expireAt = endDate;
+          //end date
+          const endDate = new Date(startDate);
+          endDate.setDate(endDate.getDate() + days);
+          projectFound.expireAt = endDate;
 
-        return await projectFound.save();
+          return await projectFound.save();
+        }
       }
-    } else
+    } catch (error) {
       throw new HttpException(
         'This payment is not success',
         HttpStatus.BAD_REQUEST,
       );
+    }
   }
 }

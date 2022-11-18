@@ -3,6 +3,7 @@ import {
   Controller,
   Get,
   HttpStatus,
+  Param,
   Post,
   Res,
   UseGuards,
@@ -57,5 +58,10 @@ export class AuthController {
     return response.status(HttpStatus.BAD_REQUEST).json({
       user: null,
     });
+  }
+
+  @Get('/:id')
+  async getUserById(@Param('id') id: string) {
+    return await this.authService.getUserById(id);
   }
 }
