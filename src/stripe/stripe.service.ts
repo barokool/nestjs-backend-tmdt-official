@@ -26,6 +26,7 @@ export class StripeService {
         confirm: true,
         // customer: projectId,
       });
+
       if (payment) {
         const projectFound = await this.projectService.getProjectById(
           projectId,
@@ -45,10 +46,11 @@ export class StripeService {
         }
       }
     } catch (error) {
-      throw new HttpException(
-        'This payment is not success',
-        HttpStatus.BAD_REQUEST,
-      );
+      return {
+        statusCode: HttpStatus.BAD_GATEWAY,
+        message: 'This payment is not success',
+        error,
+      };
     }
   }
 }

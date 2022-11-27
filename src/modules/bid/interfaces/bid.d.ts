@@ -2,6 +2,7 @@ import { Project } from 'src/modules/project/entities/project.entity';
 import { User } from 'src/modules/user/entities/user.entity';
 
 export interface IBid extends IEntity {
+  //comment
   project: Project;
   user: User;
   amount: number;

@@ -14,6 +14,7 @@ import { ProjectModule } from './modules/project/project.module';
 import { TransactionModule } from './modules/transaction/transaction.module';
 import { UserModule } from './modules/user/user.module';
 import { StripeModule } from './stripe/stripe.module';
+import { AppGateway } from './app.gateway';
 
 @Module({
   imports: [
@@ -35,7 +36,7 @@ import { StripeModule } from './stripe/stripe.module';
     StripeModule,
   ],
   controllers: [],
-  providers: [ConfigurationService],
+  providers: [ConfigurationService, AppGateway],
 })
 export class AppModule {
   static port: number;

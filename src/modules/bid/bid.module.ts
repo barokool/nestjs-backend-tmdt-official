@@ -5,6 +5,8 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { Bid } from './entities/bid.entities';
 import { BidSchema } from './schema/bid.schema';
 import { toKeyword, toSlug } from 'src/utils/string.utils';
+import { ProjectModule } from '../project/project.module';
+import { UserModule } from '../user/user.module';
 
 @Module({
   imports: [
@@ -21,8 +23,11 @@ import { toKeyword, toSlug } from 'src/utils/string.utils';
         },
       },
     ]),
+    ProjectModule,
+    UserModule,
   ],
   controllers: [BidController],
   providers: [BidService],
+  exports: [BidService],
 })
 export class BidModule {}
