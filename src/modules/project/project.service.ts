@@ -72,7 +72,15 @@ export class ProjectService {
   }
 
   async getAllProject() {
-    return await this.projectModel.find().exec();
+    const projects = await this.projectModel.find().exec();
+
+    const filterProjects = projects.map((project) => {
+      const currentDate = new Date();
+      const expireDate = new Date(project.expireAt);
+      if (expireDate > currentDate) return project;
+    });
+
+    return filterProjects.filter(Boolean);
   }
 
   async getProjectById(id: string) {
