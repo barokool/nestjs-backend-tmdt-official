@@ -103,8 +103,6 @@ export class ProjectService {
         count: count,
       };
     } catch (error) {
-      console.log('errorr :', error);
-
       return {
         result: [],
         count: 0,
