@@ -4,6 +4,7 @@ import { Model } from 'mongoose';
 import { Tags } from 'src/constants/enum';
 import { CategoryService } from '../category/category.service';
 import { User } from '../user/entities/user.entity';
+import { FilterProjectInput } from './dto/project.dto';
 import { CreateProjectInput, Project } from './entities/project.entity';
 import { ProjectDocument } from './schema/project.schema';
 
@@ -71,16 +72,44 @@ export class ProjectService {
       .exec();
   }
 
-  async getAllProject() {
-    const projects = await this.projectModel.find().exec();
+  async getAllProject(filterInput: FilterProjectInput) {
+    const { keyword, page, limit } = filterInput;
+    let filter = {};
 
-    const filterProjects = projects.map((project) => {
-      const currentDate = new Date();
-      const expireDate = new Date(project.expireAt);
-      if (expireDate > currentDate) return project;
-    });
+    if (keyword) {
+      filter = {
+        slug: {
+          $regex: keyword,
+        },
+      };
+    }
+    try {
+      const projects = await this.projectModel
+        .find(filter)
+        .skip((page - 1) * limit)
+        .limit(limit)
+        .exec();
 
-    return filterProjects.filter(Boolean);
+      const count = await this.projectModel.count();
+
+      const filterProjects = projects.map((project) => {
+        const currentDate = new Date();
+        const expireDate = new Date(project.expireAt);
+        if (expireDate > currentDate) return project;
+      });
+
+      return {
+        result: filterProjects.filter(Boolean),
+        count: count,
+      };
+    } catch (error) {
+      console.log('errorr :', error);
+
+      return {
+        result: [],
+        count: 0,
+      };
+    }
   }
 
   async getProjectById(id: string) {

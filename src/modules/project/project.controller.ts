@@ -1,7 +1,16 @@
-import { Body, Controller, Get, Param, Post, UseGuards } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Param,
+  Post,
+  Query,
+  UseGuards,
+} from '@nestjs/common';
 import { CurrentUser } from 'src/common/decorators/user.decorator';
 import { AuthenticationGuard } from 'src/common/guards/auth.guard';
 import { User } from '../user/entities/user.entity';
+import { FilterProjectInput } from './dto/project.dto';
 import { CreateProjectInput } from './entities/project.entity';
 import { ProjectService } from './project.service';
 
@@ -25,8 +34,8 @@ export class ProjectController {
   }
 
   @Get('all')
-  async getAllProjects() {
-    return await this.projectService.getAllProject();
+  async getAllProjects(@Query() filter: FilterProjectInput) {
+    return await this.projectService.getAllProject(filter);
   }
 
   @Get('/:slug')
