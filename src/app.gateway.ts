@@ -29,10 +29,6 @@ export class AppGateway
   afterInit(server: any) {
     console.log('server ', server);
   }
-  handleConnection(client: any, ...args: any[]) {
-    // console.log(`Connected ${client.id}`);
-  }
-  handleDisconnect(client: any) {
-    console.log(`Disconnected`);
-  }
+  handleConnection(client: any, ...args: any[]) {}
+  handleDisconnect(client: any) {}
 }
