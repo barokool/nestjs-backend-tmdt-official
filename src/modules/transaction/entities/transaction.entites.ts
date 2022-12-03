@@ -24,4 +24,13 @@ export class Transaction implements ITransaction {
 
   @Prop()
   createAt: Date;
+
+  @Prop({ nullable: true })
+  updateAt: Date;
+
+  @Prop({ nullable: true })
+  keyword: string;
+
+  @Prop({ nullable: true })
+  slug: string;
 }

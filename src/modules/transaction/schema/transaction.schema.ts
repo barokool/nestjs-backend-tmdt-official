@@ -9,6 +9,7 @@ export const TransactionSchema = new Schema<Transaction>({
   project: {
     type: Schema.Types.ObjectId,
     ref: Project.name,
+    unique: true,
   },
   projectOwner: {
     type: Schema.Types.ObjectId,
@@ -28,5 +29,14 @@ export const TransactionSchema = new Schema<Transaction>({
   createAt: {
     type: Date,
     default: Date.now(),
+  },
+  slug: {
+    type: String,
+  },
+  keyword: {
+    type: String,
+  },
+  updateAt: {
+    type: Date,
   },
 });
