@@ -24,13 +24,27 @@ export class TransactionService {
           .find({
             contractor: user._id,
           })
+          .populate([
+            { path: 'project' },
+            { path: 'projectOwner' },
+            { path: 'contractor' },
+          ])
           .exec(),
         this.transactionModel.count({
           contractor: user._id,
         }),
       ]);
 
-      return { result: transactions, count: totalTransaction };
+      let cloneTransactions = [...transactions];
+
+      cloneTransactions = cloneTransactions.map((transaction) => {
+        transaction.projectOwner['password'] = undefined;
+        transaction.contractor['password'] = undefined;
+
+        return transaction;
+      });
+
+      return { result: cloneTransactions, count: totalTransaction };
     } catch (error) {
       console.log('error', error);
       return { result: [], count: 0 };
@@ -38,6 +52,8 @@ export class TransactionService {
   }
 
   async createTransaction(input: CreateTransactionInput, projectOwner: User) {
+    console.log('Work');
+
     const { bidAmount, contractorId, projectId } = input;
 
     try {

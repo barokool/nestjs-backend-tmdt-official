@@ -117,39 +117,20 @@ export class ProjectService {
   async getProductBySlug(slug: string): Promise<any> {
     return await this.projectModel.find({ slug });
   }
-}
 
-/*
-input : 
-    {
-    "category" : "636f6313d3504f1be30b2913",
-    "name": "Reading Manga",
-    "description": "I need to create a reading managa based on nettruyen",
-    "postType": "NORMAL"
+  async getAllProjectByCategory(category: string) {
+    try {
+      const [projects, count] = await Promise.all([
+        this.projectModel.find({ category }).exec(),
+        this.projectModel.countDocuments({ category }),
+      ]);
+
+      return { projects, count };
+    } catch (error) {
+      return {
+        result: [],
+        count: 0,
+      };
     }
-
-response : {
-    "name": "Reading Manga",
-    "description": "I need to create a reading managa based on nettruyen",
-    "postType": "NORMAL",
-    "category": "636f6313d3504f1be30b2913",
-    "tags": [
-        "WEB"
-    ],
-    "createAt": "2022-11-14T09:40:34.648Z",
-    "_id": "63720d2c04054287ee789063",
-    "isPayed": false,
-    "createdBy": {
-        "_id": "636bc45eb9194011f42562a6",
-        "email": "knabao7a7@gmail.com",
-        "password": "$2b$10$YbIZgN5CUmDpaqnng75G/eXs86zAgK/HZqdZTh4MJL5SavgSZlPvW",
-        "phone": "0935797800",
-        "createdAt": "2022-11-09T15:16:46.730Z",
-        "updatedAt": "2022-11-09T15:16:46.730Z",
-        "__v": 0
-    },
-    "slug": "reading-manga",
-    "keyword": "reading manga",
-    "__v": 0
+  }
 }
-*/

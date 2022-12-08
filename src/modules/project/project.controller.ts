@@ -42,4 +42,9 @@ export class ProjectController {
   async getProjectBySlug(@Param('slug') slug: string) {
     return await this.projectService.getProductBySlug(slug);
   }
+
+  @Get('/filter/:category')
+  async getProductByFilter(@Param('category') category: string) {
+    return await this.projectService.getAllProjectByCategory(category);
+  }
 }
