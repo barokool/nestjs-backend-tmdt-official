@@ -17,6 +17,17 @@ export class TransactionService {
     private projectService: ProjectService,
   ) {}
 
+  async getTransactionByProject(projectId: string) {
+    try {
+      const transaction = await this.transactionModel.find({
+        project: projectId,
+      });
+
+      return transaction;
+    } catch (error) {
+      throw new BadRequestException('Error return from trycatch block');
+    }
+  }
   async getAllTransactionByUser(user: User) {
     try {
       const [transactions, totalTransaction] = await Promise.all([
@@ -52,8 +63,6 @@ export class TransactionService {
   }
 
   async createTransaction(input: CreateTransactionInput, projectOwner: User) {
-    console.log('Work');
-
     const { bidAmount, contractorId, projectId } = input;
 
     try {

@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, UseGuards } from '@nestjs/common';
 import { CurrentUser } from 'src/common/decorators/user.decorator';
 import { AuthenticationGuard } from 'src/common/guards/auth.guard';
 import { User } from '../user/entities/user.entity';
@@ -22,5 +22,10 @@ export class TransactionController {
     @CurrentUser() user: User,
   ) {
     return await this.transactionService.createTransaction(input, user);
+  }
+
+  @Get(':id')
+  async getTransactionByProject(@Param('id') id: string) {
+    return await this.transactionService.getTransactionByProject(id);
   }
 }

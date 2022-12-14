@@ -23,11 +23,11 @@ export class JsonWebTokenStrategy extends PassportStrategy(Strategy) {
   }
 
   async validate(payload: IJWTPayload): Promise<User | Admin> {
-    console.log('validate : ', payload);
+    // console.log('validate : ', payload);
     if (payload.role == RoleEnum.USER) {
       const findUser = this.userService.getUserById({ id: payload._id });
       if (findUser) {
-        console.log('user in validate : ');
+        // console.log('user in validate : ');
         return await findUser;
       }
       return null;
@@ -35,7 +35,7 @@ export class JsonWebTokenStrategy extends PassportStrategy(Strategy) {
     if (payload.role == RoleEnum.ADMIN) {
       const findAdmin = this.adminService.getAdminById(payload._id);
       if (findAdmin) {
-        console.log('admin in validate jwt strategy : ');
+        // console.log('admin in validate jwt strategy : ');
         return await findAdmin;
       }
       return null;

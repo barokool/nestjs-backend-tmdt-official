@@ -69,37 +69,64 @@ export class ProjectService {
       .find({
         createdBy: user._id,
       })
+      .populate([{ path: 'createdBy' }])
       .exec();
   }
 
   async getAllProject(filterInput: FilterProjectInput) {
     const { keyword, page, limit } = filterInput;
     let filter = {};
+    const currentDate = new Date();
 
     if (keyword) {
       filter = {
         slug: {
           $regex: keyword,
         },
+        expireAt: {
+          $gte: currentDate,
+        },
       };
     }
+
+    const count = await this.projectModel.countDocuments({
+      expireAt: {
+        $gte: new Date(),
+      },
+    });
+
+    let projects = [];
+
     try {
-      const projects = await this.projectModel
-        .find(filter)
-        .skip((page - 1) * limit)
-        .limit(limit)
-        .exec();
-
-      const count = await this.projectModel.count();
-
-      const filterProjects = projects.map((project) => {
-        const currentDate = new Date();
-        const expireDate = new Date(project.expireAt);
-        if (expireDate > currentDate) return project;
-      });
+      if (keyword) {
+        projects = await this.projectModel
+          .find({
+            slug: {
+              $regex: keyword,
+            },
+            expireAt: {
+              $gte: new Date(),
+            },
+          })
+          .skip((page - 1) * limit)
+          .limit(limit)
+          .populate([{ path: 'createdBy' }])
+          .exec();
+      } else {
+        projects = await this.projectModel
+          .find({
+            expireAt: {
+              $gte: new Date(),
+            },
+          })
+          .skip((page - 1) * limit)
+          .limit(limit)
+          .populate([{ path: 'createdBy' }])
+          .exec();
+      }
 
       return {
-        result: filterProjects.filter(Boolean),
+        result: projects,
         count: count,
       };
     } catch (error) {
@@ -121,7 +148,10 @@ export class ProjectService {
   async getAllProjectByCategory(category: string) {
     try {
       const [projects, count] = await Promise.all([
-        this.projectModel.find({ category }).exec(),
+        this.projectModel
+          .find({ category })
+          .populate([{ path: 'createdBy' }])
+          .exec(),
         this.projectModel.countDocuments({ category }),
       ]);
 

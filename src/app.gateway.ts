@@ -10,12 +10,17 @@ import {
 import { Server, Socket } from 'socket.io';
 import { BidService } from './modules/bid/bid.service';
 import { CreateBidInput } from './modules/bid/dto/bid.dto';
+import { CreateMessageInput } from './modules/message/dto/message.dto';
+import { MessageService } from './modules/message/message.service';
 
 @WebSocketGateway({ cors: { origin: '*' } })
 export class AppGateway
   implements OnGatewayInit, OnGatewayConnection, OnGatewayDisconnect
 {
-  constructor(private bidService: BidService) {}
+  constructor(
+    private bidService: BidService,
+    private messageService: MessageService,
+  ) {}
   @WebSocketServer()
   server: Server;
 
@@ -24,6 +29,16 @@ export class AppGateway
     await this.bidService.createBid(payload);
 
     this.server.sockets.emit('message', payload);
+  }
+
+  @SubscribeMessage('chatMessage')
+  async handleChatMessage(
+    client: Socket,
+    @MessageBody() payload: CreateMessageInput,
+  ) {
+    await this.messageService.createMessage(payload);
+
+    this.server.sockets.emit('chatMessage', payload);
   }
 
   afterInit(server: any) {

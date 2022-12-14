@@ -15,6 +15,8 @@ import { TransactionModule } from './modules/transaction/transaction.module';
 import { UserModule } from './modules/user/user.module';
 import { StripeModule } from './stripe/stripe.module';
 import { AppGateway } from './app.gateway';
+import { MessageModule } from './modules/message/message.module';
+import { ConversationModule } from './modules/conversation/conversation.module';
 
 @Module({
   imports: [
@@ -34,6 +36,8 @@ import { AppGateway } from './app.gateway';
     BidModule,
     ProjectViewedModule,
     StripeModule,
+    ConversationModule,
+    MessageModule,
   ],
   controllers: [],
   providers: [ConfigurationService, AppGateway],
