@@ -87,7 +87,7 @@ export class ConversationService {
         .find({
           members: { $in: [id] },
         })
-        .populate([{ path: 'messages' }]);
+        .populate([{ path: 'messages' },{path : 'members'}]);
 
       return foundConversationn;
     } catch (error) {
