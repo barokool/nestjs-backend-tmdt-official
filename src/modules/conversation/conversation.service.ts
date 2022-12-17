@@ -37,9 +37,9 @@ export class ConversationService {
 
   async getConversation(conversationId: string) {
     try {
-      const conversation = await this.conversationModel.findById(
-        conversationId,
-      );
+      const conversation = await this.conversationModel
+        .findById(conversationId)
+        .populate([{ path: 'messages' }]);
       return conversation;
     } catch (error) {
       throw new BadRequestException(
@@ -87,7 +87,7 @@ export class ConversationService {
         .find({
           members: { $in: [id] },
         })
-        .populate([{ path: 'messages' },{path : 'members'}]);
+        .populate([{ path: 'messages' }, { path: 'members' }]);
 
       return foundConversationn;
     } catch (error) {

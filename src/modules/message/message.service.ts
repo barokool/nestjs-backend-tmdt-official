@@ -19,10 +19,13 @@ export class MessageService {
     const { conversation, receiver, sender, text } = input;
 
     try {
-      const foundConversation =
-        this.conversationService.getConversation(conversation);
-      const foundReceiver = this.userService.getUserById({ id: receiver });
-      const foundSender = this.userService.getUserById({ id: sender });
+      const foundConversation = await this.conversationService.getConversation(
+        conversation,
+      );
+      const foundReceiver = await this.userService.getUserById({
+        id: receiver,
+      });
+      const foundSender = await this.userService.getUserById({ id: sender });
       if (
         foundConversation &&
         foundReceiver &&
@@ -36,10 +39,20 @@ export class MessageService {
           text,
         });
 
-        await newMessage.save();
+        await foundConversation.update({
+          $push: {
+            messages: newMessage,
+          },
+        });
 
-        return true;
+        await newMessage.save();
+        await foundConversation.save();
+        console.log('sent success');
+
+        return foundConversation;
       }
+      console.log('sent failed');
+
       return false;
     } catch (error) {
       throw new BadRequestException(`Cant create message because ${error}`);
