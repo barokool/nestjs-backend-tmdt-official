@@ -16,3 +16,11 @@ export function toKeyword(text: string): string {
   if (!text) return '';
   return text.replace(/-/g, ' ');
 }
+
+export function sumCharCode(char: string) {
+  const sum = char.split('').reduce((acc, value) => {
+    acc = acc + value.charCodeAt(0);
+    return acc;
+  }, 0);
+  return sum;
+}

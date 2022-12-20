@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { CacheModule, Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { APP_GUARD } from '@nestjs/core';
 import { MongooseModule } from '@nestjs/mongoose';
@@ -26,6 +26,7 @@ import { ConversationModule } from './modules/conversation/conversation.module';
     MongooseModule.forRootAsync({
       useClass: MongooseConfigService,
     }),
+    CacheModule.register(),
     PassportModule,
     AuthModule,
     UserModule,

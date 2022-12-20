@@ -6,3 +6,8 @@ export class CreateConversationInput {
   @IsNotEmpty()
   members: string[];
 }
+
+export class ConnectionInput {
+  @Prop()
+  userId: string;
+}
